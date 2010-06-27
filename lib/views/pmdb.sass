@@ -1,3 +1,51 @@
-#body {
-  font-size: 11px
+body {
+  font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+  font-size: 12px;
+}
+
+.movies {
+  border-collapse: collapse;
+  width: 80%;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  color: #669;
+  border-bottom: 1px solid #E8EDFF; 
+
+  .name {width: 50%;}
+  .genres {width: 40%;}
+  .score {width: 10%;}
+
+  .dir {
+    border-left-style: none;
+    border-right-style: none;
+  }
+
+  .dir td {
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    -moz-border-radius-topleft: 20px;
+    -webkit-border-top-left-radius: 20px;
+    -moz-border-radius-topright: 20px;
+    -webkit-border-top-right-radius: 20px;
+    padding-left: 15px;
+    background-color: #E8EDFF;
+    font-size: 16px;
+    height: 20px;
+    color: #039;
+  }
+
+  .even {background-color: #E8EDFF;}
+
+  tr {
+    border-left: 1px solid #E8EDFF;
+    border-right: 1px solid #E8EDFF;
+  }
+
+  td {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
 }
