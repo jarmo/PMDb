@@ -34,19 +34,21 @@ h1 {
   margin-right: auto;
   text-align: left;
   color: #669;
-  border: 1px solid #eaefff;
+  $blue-color: #eaefff;
+  border: 1px solid $blue-color;
   border-spacing: 0px;
   background-color: #fff;
 
-  -webkit-box-shadow:5px 5px 20px #ccc;
-  -moz-box-shadow:5px 5px 20px #ccc;
-  box-shadow:5px 5px 20px #ccc;
+  $box-shadow-properties: 5px 5px 20px #ccc;
+  -webkit-box-shadow: $box-shadow-properties;
+  -moz-box-shadow: $box-shadow-properties;
+  box-shadow: $box-shadow-properties;
 
   .name {width: 50%;}
   .genres {width: 40%;}
   .score {width: 9%;}
 
-  th, td {
+  td {
     padding-left: 5px;
     padding-right: 5px;
   }
@@ -60,15 +62,16 @@ h1 {
     color: #039;
   }
 
-  th, .even {background-color: #eaefff;}
+  th, .even {background-color: $blue-color;}
 
 }
 
 .movies, th {
-  border-top-right-radius: 20px;
-  border-top-left-radius: 20px;
-  -moz-border-radius-topleft: 20px;
-  -webkit-border-top-left-radius: 20px;
-  -moz-border-radius-topright: 20px;
-  -webkit-border-top-right-radius: 20px;
+  $border-radius-properties: 20px;
+  border-top-right-radius: $border-radius-properties;
+  border-top-left-radius: $border-radius-properties;
+  -moz-border-radius-topleft: $border-radius-properties;
+  -webkit-border-top-left-radius: $border-radius-properties;
+  -moz-border-radius-topright: $border-radius-properties;
+  -webkit-border-top-right-radius: $border-radius-properties;
 }
