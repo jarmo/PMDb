@@ -1,6 +1,10 @@
-body {
+* {
   font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
   font-size: 12px;
+  color: #669;
+}
+
+body {
   background-color: #e6f7f3;
 
   background: -webkit-gradient(
@@ -31,13 +35,13 @@ body {
 h1 {
   padding-top: 75px;
   text-align: center;
+  font-size: 18px;
 }
 
 .movies {
   width: 100%;
   margin-top: 50px;
   text-align: left;
-  color: #669;
   border-spacing: 0px;
   background-color: #fff;
 
@@ -56,8 +60,8 @@ h1 {
   }
 
   th {
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-right: 25px;
+    padding-left: 25px;
     font-size: 16px;
     font-weight: normal;
     height: 20px;
@@ -72,6 +76,10 @@ h1 {
     display: none;
     padding-left: 25px;
     background-color: #f1f1f1;
+
+    .keyword {
+      color: #039;
+    }
   }
 
 }
@@ -99,5 +107,16 @@ h1 {
 .ui-icon {
   display: inline-block;
   vertical-align: bottom;
-  cursor: pointer;
+
+  &.ui-icon-minus, &.ui-icon-plus {
+    cursor: pointer;
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
