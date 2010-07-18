@@ -38,8 +38,6 @@ h1 {
   margin-top: 50px;
   text-align: left;
   color: #669;
-  $blue-color: #eaefff;
-  border: 1px solid $blue-color;
   border-spacing: 0px;
   background-color: #fff;
 
@@ -66,16 +64,40 @@ h1 {
     color: #039;
   }
 
+  $blue-color: #eaefff;
+  border: 1px solid $blue-color;
   th, .even {background-color: $blue-color;}
+
+  .details {
+    display: none;
+    padding-left: 25px;
+    background-color: #f1f1f1;
+  }
 
 }
 
 .movies, th {
-  $border-radius-properties: 20px;
-  border-top-right-radius: $border-radius-properties;
-  border-top-left-radius: $border-radius-properties;
-  -moz-border-radius-topleft: $border-radius-properties;
-  -webkit-border-top-left-radius: $border-radius-properties;
-  -moz-border-radius-topright: $border-radius-properties;
-  -webkit-border-top-right-radius: $border-radius-properties;
+  $border-top-radius-properties: 20px;
+  border-top-right-radius: $border-top-radius-properties;
+  border-top-left-radius: $border-top-radius-properties;
+  -moz-border-radius-topleft: $border-top-radius-properties;
+  -webkit-border-top-left-radius: $border-top-radius-properties;
+  -moz-border-radius-topright: $border-top-radius-properties;
+  -webkit-border-top-right-radius: $border-top-radius-properties;
+}
+
+.movies, tr:last-child td:first-child, tr:last-child td:last-child {
+  $border-bottom-radius-properties: 10px;
+  border-bottom-right-radius: $border-bottom-radius-properties;
+  border-bottom-left-radius: $border-bottom-radius-properties;
+  -moz-border-radius-bottomleft: $border-bottom-radius-properties;
+  -webkit-border-bottom-left-radius: $border-bottom-radius-properties;
+  -moz-border-radius-bottomright: $border-bottom-radius-properties;
+  -webkit-border-bottom-right-radius: $border-bottom-radius-properties;
+}
+
+.ui-icon {
+  display: inline-block;
+  vertical-align: bottom;
+  cursor: pointer;
 }
