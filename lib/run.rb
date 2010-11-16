@@ -17,5 +17,5 @@ end
 
 get '/css/pmdb.css' do
   content_type 'text/css', :charset => 'utf-8'
-  sass :pmdb, :syntax => :scss
+  scss :pmdb
 end
