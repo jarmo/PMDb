@@ -1,20 +1,18 @@
-* {
-  font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
-  font-size: 12px;
-  color: #669;
-}
-
 body {
   background-color: #e6f7f3;
+  font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+  font-size: 12px;
+  line-height: normal;
+  color: #669;
 
   background: -webkit-gradient(
     linear,
-    left bottom,
     left top,
-    color-stop(0.39, rgb(255,255,255)),
-    color-stop(0.8, rgb(230,247,243)),
-    color-stop(0.91, rgb(232,249,245))
-  );
+    left bottom,
+    color-stop(0.35, rgb(230,230,230)),
+    color-stop(0.56, rgb(241,241,241)),
+    color-stop(0.79, rgb(255,255,255))
+);
 
   background: -moz-linear-gradient(
     center bottom,
@@ -43,12 +41,13 @@ h1 {
   margin-top: 50px;
   text-align: left;
   border-spacing: 0px;
+  border-collapse: separate;
   background-color: #fff;
 
-  $box-shadow-properties: 5px 5px 20px #ccc;
+  /*$box-shadow-properties: 5px 5px 20px #ccc;
   -webkit-box-shadow: $box-shadow-properties;
   -moz-box-shadow: $box-shadow-properties;
-  box-shadow: $box-shadow-properties;
+  box-shadow: $box-shadow-properties;*/
 
   .name {width: 50%;}
   .genres {width: 40%;}
@@ -57,6 +56,8 @@ h1 {
   td {
     padding-left: 5px;
     padding-right: 5px;
+    padding-top: 1px;
+    padding-bottom: 2px;
   }
 
   th {
@@ -94,14 +95,25 @@ h1 {
   -webkit-border-top-right-radius: $border-top-radius-properties;
 }
 
-.movies, tr:last-child td:first-child, tr:last-child td:last-child {
+@mixin rounded_bottom($direction) {
   $border-bottom-radius-properties: 10px;
-  border-bottom-right-radius: $border-bottom-radius-properties;
-  border-bottom-left-radius: $border-bottom-radius-properties;
-  -moz-border-radius-bottomleft: $border-bottom-radius-properties;
-  -webkit-border-bottom-left-radius: $border-bottom-radius-properties;
-  -moz-border-radius-bottomright: $border-bottom-radius-properties;
-  -webkit-border-bottom-right-radius: $border-bottom-radius-properties;
+  border-bottom-#{$direction}-radius: $border-bottom-radius-properties;
+  -moz-border-radius-bottom#{$direction}: $border-bottom-radius-properties;
+  -webkit-border-bottom-#{$direction}-radius: $border-bottom-radius-properties;
+}
+
+.movies {
+  @include rounded_bottom("right");
+  @include rounded_bottom("left");
+  
+  tr:last-child td:first-child {
+    @include rounded_bottom("left");
+  }
+
+  tr:last-child td:last-child {
+    @include rounded_bottom("right");    
+  }
+
 }
 
 .ui-icon {
@@ -115,6 +127,7 @@ h1 {
 
 a {
   text-decoration: none;
+  color: #669;
 }
 
 a:hover {

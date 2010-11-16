@@ -1,4 +1,3 @@
-gem "eventmachine", "=0.12.8"
 require "sinatra"
 require "haml"
 #raise "wrong ruby version" unless RUBY_VERSION == "1.9.1"
