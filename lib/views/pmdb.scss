@@ -1,129 +1,69 @@
 @import "compass/reset";
+@import "compass/css3/images";
+@import "compass/css3/box-shadow";
+@import "compass/css3/border-radius";
+
+html {min-height: 100%}
 
 body {
-  background-color: #e6f7f3;
   font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
   font-size: 12px;
   line-height: normal;
   color: #669;
-
-  background: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    color-stop(0.35, rgb(230,230,230)),
-    color-stop(0.56, rgb(241,241,241)),
-    color-stop(0.79, rgb(255,255,255))
-);
-
-  background: -moz-linear-gradient(
-    center bottom,
-    rgb(255,255,255) 39%,
-    rgb(230,247,243) 80%,
-    rgb(232,249,245) 91%
-  );
-  
-  background-repeat: repeat-x;
+  background-color: #e6f7f3;
+  @include background-image(linear-gradient(#e6e6e6, #f1f1f1, #fff));
 }
 
 #content {
   width: 80%;
-  margin-left: auto;
-  margin-right: auto;
+  margin: auto;
 }
 
 h1 {
-  padding-top: 75px;
+  margin-top: 40px;
   text-align: center;
   font-size: 18px;
 }
 
 .movies {
   width: 100%;
-  margin-top: 50px;
+  margin-top: 35px;
   text-align: left;
-  border-spacing: 0px;
-  border-collapse: separate;
   background-color: #fff;
 
-  $box-shadow-properties: 5px 5px 20px #ccc;
-  -webkit-box-shadow: $box-shadow-properties;
-  -moz-box-shadow: $box-shadow-properties;
-  box-shadow: $box-shadow-properties;
+  $blue-color: #eaefff;
+  border: 1px solid $blue-color;
 
-  .name {width: 50%;}
-  .genres {width: 40%;}
-  .score {width: 9%;}
-
-  td {
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 1px;
-    padding-bottom: 2px;
+  .header, .even {
+    background-color: $blue-color;
   }
 
-  th {
-    padding-right: 25px;
-    padding-left: 25px;
+  &, .header {
+    @include border-top-radius(20px);    
+  }
+
+  .header {
+    padding: 0 25px 0 25px; 
     font-size: 16px;
-    font-weight: normal;
     height: 20px;
     color: #039;
   }
 
-  $blue-color: #eaefff;
-  border: 1px solid $blue-color;
-  th, .even {background-color: $blue-color;}
+  .name {
+    display: inline-block;
+    padding-left: 10px;
+    width: 50%;
+  }
+  .genre {display: inline-block; width: 40%}
+
+  @include box-shadow(#ccc, 5px, 5px, 20px);
+  @include border-bottom-radius(10px);
 
   .details {
     display: none;
     padding-left: 25px;
-    background-color: #f1f1f1;
-
-    .keyword {
-      color: #039;
-    }
-  }
-
-}
-
-.movies, th {
-  $border-top-radius-properties: 20px;
-  border-top-right-radius: $border-top-radius-properties;
-  border-top-left-radius: $border-top-radius-properties;
-  -moz-border-radius-topleft: $border-top-radius-properties;
-  -webkit-border-top-left-radius: $border-top-radius-properties;
-  -moz-border-radius-topright: $border-top-radius-properties;
-  -webkit-border-top-right-radius: $border-top-radius-properties;
-}
-
-@mixin rounded_bottom($direction) {
-  $border-bottom-radius-properties: 10px;
-  border-bottom-#{$direction}-radius: $border-bottom-radius-properties;
-  -moz-border-radius-bottom#{$direction}: $border-bottom-radius-properties;
-  -webkit-border-bottom-#{$direction}-radius: $border-bottom-radius-properties;
-}
-
-.movies {
-  @include rounded_bottom("right");
-  @include rounded_bottom("left");
-  
-  tr:last-child td:first-child {
-    @include rounded_bottom("left");
-  }
-
-  tr:last-child td:last-child {
-    @include rounded_bottom("right");    
-  }
-
-}
-
-.ui-icon {
-  display: inline-block;
-  vertical-align: bottom;
-
-  &.ui-icon-minus, &.ui-icon-plus {
-    cursor: pointer;
+    backbround-color: #f1f1f1;
+    .keyword {color: #039}
   }
 }
 
@@ -135,3 +75,15 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+/*
+.ui-icon {
+  display: inline-block;
+  vertical-align: bottom;
+
+  &.ui-icon-minus, &.ui-icon-plus {
+    cursor: pointer;
+  }
+}
+
+*/

@@ -1,69 +1,96 @@
 %h1 Personal Movie Database v2.0
-%table.movies
-  %thead
-    %tr
-      %th{:colspan => 3}
-        %span.ui-icon.ui-icon-video
-        25 movies at c:\movies
-  %tbody
-    %tr
-      %td.name Discovery Channel Kings of Construction South Ferry Terminal
-      %td.genres Draama, Action, Thriller, Comedy, Romance, Adventure
-      %td.score 8.5 (22.590)
-    %tr.even
-      %td.name veel v2ga pikema nimega v2ga v2ga pika nimega pikema nimega film 1
-      %td.genres Draama, Action, Thriller, Comedy, Romance, Adventure
-      %td.score 8.5 (22.590)
-    %tr
-      %td.name Discovery Channel Kings of Construction South Ferry Terminal
-      %td.genres Draama, Action, Thriller, Comedy, Romance, Adventure
-      %td.score 8.5 (22.590)
 
-%table.movies
-  %thead
-    %tr
-      %th{:colspan => 3} 25 movies at c:\movies
-  %tbody
-    %tr
-      %td.name
-        %span#movie_123.ui-icon.ui-icon-plus
-        %a{:href => "http://www.imdb.com"} Discovery Channel Kings of Construction
-      %td.genres Draama, Action, Thriller, Comedy, Romance, Adventure
-      %td.score 8.5 (22.590)
-    %tr
-      %td{:colspan => 3}
-        #details_123.details
-          .detail
-            %span.keyword alternative name:
-            %span huinamuina film
-          .detail
-            %span.keyword plot:
-            %span Elas kord yhes metsas karu, kellele meeldis süüa mustikaid. Kahjuks aga vihma ei sadanud, mistõttu mustikad said kiiresti otsa. Kahjuks. Aga see ei loe, sest karumõmm puges koopasse magama lootuses, et kui uuesti ärkab, siis on olukord juba väga palju muutunud. Lootuses.
-          .detail
-            %span.keyword path:
-            %span c:\filmid\film1\film1.avi
-          .detail
-            %span.keyword added:
-            %span 22.07.2010
-    %tr.even
-      %td.name
-        %span#movie_456.ui-icon.ui-icon-plus
-        veel v2ga pikema nimega v2ga v2ga pika nimega pikema nimega film 1
-      %td.genres Draama, Action, Thriller, Comedy, Romance, Adventure
-      %td.score 8.5 (22.590)
-    %tr
-      %td{:colspan => 3}
-        #details_456.details
-          tere3
-          %br
-          tere4
-          %br
-          tere3dfssa sfdsa safdas adfa sfdsa asdfas aadf sfdsa aasdfda adfas sfsad adfas safsa safsa safsdafsafsa safsdaf sa fsdfsa sdafsafsa sfasf tere3dfssa sfdsa safdas adfa sfdsa asdfas aadf sfdsa aasdfda adfas sfsad adfas safsa safsa safsdafsafsa safsdaf sa fsdfsa sdafsafsa sfasf
-    %tr
-      %td.name veel v2ga pikema nimega v2ga v2ga pika nimega pikema nimega film 1
-      %td.genres Draama, Action, Thriller, Comedy, Romance, Adventure
-      %td.score 8.5 (22.590)
-    %tr.even
-      %td.name veel v2ga pikema nimega v2ga v2ga pika nimega pikema nimega film 1
-      %td.genres Draama, Action, Thriller, Comedy, Romance, Adventure
-      %td.score 8.5 (22.590)
+.movies
+  .header
+    %span.dir 25 movies at c:\movies
+  .movie
+    %span.name
+      %a(href = "#") Something
+    %span.genre Drama, Action, THriller, Comedy
+    %span.score 8.5 (12.123)
+    .details
+      .detail
+        %span.keyword alternative name:
+        %span huinamuina film
+      .detail
+        %span.keyword plot:
+        %span Elas kord yhes metsas karu, kellele meeldis süüa mustikaid. Kahjuks aga vihma ei sadanud, mistõttu mustikad said kiiresti otsa. Kahjuks. Aga see ei loe, sest karumõmm puges koopasse magama lootuses, et kui uuesti ärkab, siis on olukord juba väga palju muutunud. Lootuses.
+      .detail
+        %span.keyword path:
+        %span c:\filmid\film1\film1.avi
+      .detail
+        %span.keyword added:
+        %span 22.07.2010
+  .movie
+    %span.name Something
+    %span.genre Drama, Action, THriller, Comedy
+    %span.score 8.5 (12.123)
+    .details
+      .detail
+        %span.keyword alternative name:
+        %span huinamuina film
+      .detail
+        %span.keyword plot:
+        %span Elas kord yhes metsas karu, kellele meeldis süüa mustikaid. Kahjuks aga vihma ei sadanud, mistõttu mustikad said kiiresti otsa. Kahjuks. Aga see ei loe, sest karumõmm puges koopasse magama lootuses, et kui uuesti ärkab, siis on olukord juba väga palju muutunud. Lootuses.
+      .detail
+        %span.keyword path:
+        %span c:\filmid\film1\film1.avi
+      .detail
+        %span.keyword added:
+        %span 22.07.2010
+
+.movies
+  .header
+    %span.dir 25 movies at c:\movies
+  .movie
+    %span.name
+      %a(href = "#") Something
+    %span.genre Drama, Action, THriller, Comedy
+    %span.score 8.5 (12.123)
+    .details
+      .detail
+        %span.keyword alternative name:
+        %span huinamuina film
+      .detail
+        %span.keyword plot:
+        %span Elas kord yhes metsas karu, kellele meeldis süüa mustikaid. Kahjuks aga vihma ei sadanud, mistõttu mustikad said kiiresti otsa. Kahjuks. Aga see ei loe, sest karumõmm puges koopasse magama lootuses, et kui uuesti ärkab, siis on olukord juba väga palju muutunud. Lootuses.
+      .detail
+        %span.keyword path:
+        %span c:\filmid\film1\film1.avi
+      .detail
+        %span.keyword added:
+        %span 22.07.2010
+  .movie.even
+    %span.name Something
+    %span.genre Drama, Action, THriller, Comedy
+    %span.score 8.5 (12.123)
+    .details
+      .detail
+        %span.keyword alternative name:
+        %span huinamuina film
+      .detail
+        %span.keyword plot:
+        %span Elas kord yhes metsas karu, kellele meeldis süüa mustikaid. Kahjuks aga vihma ei sadanud, mistõttu mustikad said kiiresti otsa. Kahjuks. Aga see ei loe, sest karumõmm puges koopasse magama lootuses, et kui uuesti ärkab, siis on olukord juba väga palju muutunud. Lootuses.
+      .detail
+        %span.keyword path:
+        %span c:\filmid\film1\film1.avi
+      .detail
+        %span.keyword added:
+        %span 22.07.2010
+  .movie
+    %span.name Something
+    %span.genre Drama, Action, THriller, Comedy
+    %span.score 8.5 (12.123)
+    .details
+      .detail
+        %span.keyword alternative name:
+        %span huinamuina film
+      .detail
+        %span.keyword plot:
+        %span Elas kord yhes metsas karu, kellele meeldis süüa mustikaid. Kahjuks aga vihma ei sadanud, mistõttu mustikad said kiiresti otsa. Kahjuks. Aga see ei loe, sest karumõmm puges koopasse magama lootuses, et kui uuesti ärkab, siis on olukord juba väga palju muutunud. Lootuses.
+      .detail
+        %span.keyword path:
+        %span c:\filmid\film1\film1.avi
+      .detail
+        %span.keyword added:
+        %span 22.07.2010
