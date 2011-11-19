@@ -2,6 +2,7 @@
 @import "compass/css3/images";
 @import "compass/css3/box-shadow";
 @import "compass/css3/border-radius";
+@import "compass/typography/links/hover-link";
 
 html {min-height: 100%}
 
@@ -70,12 +71,8 @@ h1 {
 }
 
 a {
-  text-decoration: none;
   color: #669;
-}
-
-a:hover {
-  text-decoration: underline;
+  @include hover-link;
 }
 
 /*
