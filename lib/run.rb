@@ -2,14 +2,16 @@ require "bundler"
 Bundler.setup
 require "sinatra"
 require "haml"
-
-class MyClass
-end
+require 'compass'
 
 configure do
-  def b
-    @@b ||= MyClass.new
+  Compass.configuration do |config|
+    config.project_path = File.dirname(__FILE__)
+    config.sass_dir = 'views'
   end
+
+  set :haml, {:format => :html5}
+  set :scss, Compass.sass_engine_options
 end
 
 get "/" do
