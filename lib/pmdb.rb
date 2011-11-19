@@ -1,9 +1,23 @@
 require 'bundler'
 Bundler.setup
 require 'sinatra/base'
+require 'sinatra/reloader'
 require 'haml'
 require 'compass'
 require 'yaml'
+require 'pathname'
+
+class MovieFinder
+  def initialize(options)
+    @options = options
+  end
+
+  def find
+    dirs = @options["dirs"].reduce([]) do |memo, dir|
+      memo << Pathname.new(dir).children.select(&:directory?)
+    end.flatten
+  end
+end
 
 class PMDb < Sinatra::Base
   helpers do
@@ -27,7 +41,13 @@ class PMDb < Sinatra::Base
     enable :logging
   end
 
+  configure :development do
+    register Sinatra::Reloader
+  end
+
   get "/" do
+    p settings.pmdb
+    puts MovieFinder.new(settings.pmdb).find
     haml :index
   end
 
