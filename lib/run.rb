@@ -1,6 +1,7 @@
+require "bundler"
+Bundler.setup
 require "sinatra"
 require "haml"
-#raise "wrong ruby version" unless RUBY_VERSION == "1.9.1"
 
 class MyClass
 end
