@@ -43,11 +43,13 @@ h1 {
   }
 
   .header {
-    padding: 0 25px 0 25px; 
+    padding: 2px 15px 2px 15px; 
     font-size: 16px;
     height: 20px;
     color: #039;
   }
+
+  .movie {padding: 2px 0 2px 0}
 
   .name {
     display: inline-block;
@@ -56,7 +58,7 @@ h1 {
   }
   .genre {display: inline-block; width: 40%}
 
-  @include box-shadow(#ccc, 5px, 5px, 20px);
+  @include box-shadow(#ccc 5px 5px 20px);
   @include border-bottom-radius(10px);
 
   .details {
