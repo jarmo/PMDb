@@ -8,4 +8,7 @@ gem "sass"
 gem "compass"
 gem "thin"
 gem "eventmachine", "~> 1.0.0.beta.4.1"
+gem "em-http-request"
+gem "em-synchrony"
 gem 'ruby-debug19'
+gem "parallel"
