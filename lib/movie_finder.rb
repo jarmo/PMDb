@@ -21,7 +21,7 @@ class MovieFinder
         f.file? && (f.nfo? || f.video?)
       end
       memo << file
-    end
+    end.compact
   end
 
   def objectify(files)
@@ -32,19 +32,18 @@ class MovieFinder
 
   def imdb_info(objs)
     EM.synchrony do
-      multi = EM::Synchrony::Multi.new
-      objs.each_with_index do |obj, i|
-        multi.add i + 1_000_000, EM::HttpRequest.new(obj[:imdb].url).aget
+      i = -1
+      objs.each_slice(1) do |bulk_objs|
+        multi = EM::Synchrony::Multi.new
+        bulk_objs.each do |obj|
+          multi.add i += 1, EM::HttpRequest.new(obj[:imdb].url).aget
+        end
+
+        res = multi.perform
+        Parallel.map(res.responses[:callback], :in_threads => 5) do |k, v|
+          objs[k][:imdb].response = v.response
+        end
       end
-
-      res = multi.perform
-      require "pp"
-      pp res.responses[:callback].keys
-      puts "===================================================================="
-      pp res.responses[:callback][1_000_000].response
-
-      EM.stop
     end
-    objs
   end
 end

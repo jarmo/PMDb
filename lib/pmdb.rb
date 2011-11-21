@@ -16,9 +16,6 @@ require_relative'pathname_ext'
 require_relative 'movie_finder'
 require_relative 'imdb'
 
-puts MovieFinder.new({"dirs" => ["c:/users/jarmo/downloads/avi"]}).movies
-exit
-
 class PMDb < Sinatra::Base
   helpers do
     class << self
