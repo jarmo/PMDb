@@ -12,3 +12,4 @@ gem "em-http-request"
 gem "em-synchrony"
 gem 'ruby-debug19'
 gem "parallel"
+gem "yajl-ruby"

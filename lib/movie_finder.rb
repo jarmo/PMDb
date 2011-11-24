@@ -36,14 +36,16 @@ class MovieFinder
       objs.each_slice(1) do |bulk_objs|
         multi = EM::Synchrony::Multi.new
         bulk_objs.each do |obj|
-          multi.add i += 1, EM::HttpRequest.new(obj[:imdb].url).aget
+          multi.add i += 1, EM::HttpRequest.new(obj[:imdb].scraping_url).aget
         end
 
         res = multi.perform
-        Parallel.map(res.responses[:callback], :in_threads => 5) do |k, v|
-          objs[k][:imdb].response = v.response
+        Parallel.each(res.responses[:callback], :in_threads => 5) do |k, v|
+          objs[k][:imdb].parse_response v.response
         end
       end
     end
+
+    objs
   end
 end

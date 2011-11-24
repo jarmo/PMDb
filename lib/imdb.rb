@@ -1,18 +1,37 @@
 class IMDb
-  attr_reader :url, :name, :score, :votes, :genres
+  attr_reader :url, :movie_id, :year, :name, :score, :votes, :genres
 
   def initialize(file)
     @file = file
     parse_file file
   end
 
+  def parse_response response
+    json = Yajl::Parser.parse response, :symbolize_keys => true
+    return unless json[:Response] == "True"
+
+    @name = json[:Title]
+    @year = json[:Year]
+    @score = json[:Rating]
+    @votes = json[:Votes]
+    @genres = json[:Genre].split(", ")
+    @movie_id = json[:ID]
+    @url = "http://akas.imdb.com/title/#{@movie_id}"
+  end
+
+  def scraping_url 
+    suffix = @movie_id ? "i=#{@movie_id}" : "t=#{@name}&y=#{@year}"
+    URI.encode "http://imdbapi.com/?#{suffix}"
+  end
+
   private
 
   def parse_file(file)
     @url = parse_url file
-    unless @url
-      @name = parse_name file
-      @url = url_from name
+    if @url
+      @movie_id = @url.split("/").last
+    else
+      @name, @year = parse_name_and_year file
     end
   end
 
@@ -23,20 +42,18 @@ class IMDb
     urls.detect {|url| url =~ /imdb/i}
   end
 
-  def url_from(name)
-    URI.escape("http://akas.imdb.com/find?s=all&x=0&y=0&q=#{name}")
-  end
+  #def url_from(name)
+    #URI.escape("http://akas.imdb.com/find?s=all&x=0&y=0&q=#{name}")
+  #end
 
-  def parse_name(file)
+  def parse_name_and_year(file)
     name = clean_dir(file)
     year = name.scan(/\s?((?:19|20)\d{2})/).flatten.last
     if year
       name_without_year = name.gsub(/\s?#{year}$/, "")
-      unless name_without_year.empty?
-        name = "#{name_without_year} (#{year})"
-      end
+      name = name_without_year unless name_without_year.empty?
     end
-    name
+    return name, year
   end
 
   def clean_dir(file)
