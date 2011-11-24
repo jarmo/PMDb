@@ -28,12 +28,10 @@ class IMDb
   end
 
   def parse_name(file)
-    dir = clean_dir(file)
-    year = dir.scan(/\s?((?:19|20)\d{2})/).flatten.last
-
-    name = ""
+    name = clean_dir(file)
+    year = name.scan(/\s?((?:19|20)\d{2})/).flatten.last
     if year
-      name_without_year = dir.gsub(/\s?#{year}$/, "")
+      name_without_year = name.gsub(/\s?#{year}$/, "")
       unless name_without_year.empty?
         name = "#{name_without_year} (#{year})"
       end
