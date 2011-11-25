@@ -4,7 +4,11 @@ class MovieFinder
   end
 
   def movies
-    parse movie_files
+    @movies = parse movie_files
+  end
+
+  def to_json
+    Yajl::Encoder.encode @movies
   end
 
   private

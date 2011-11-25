@@ -7,6 +7,11 @@ class IMDb
     parse_imdb
   end
 
+  def to_json
+    Yajl::Encoder.encode :url => url, :movie_id => movie_id, :year => year, 
+                         :name => name, :score => score, :votes => votes, :genres => genres
+  end
+
   private
 
   def parse_file(file)

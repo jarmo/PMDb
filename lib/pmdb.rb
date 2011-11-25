@@ -22,6 +22,10 @@ class PMDb < Sinatra::Base
         YAML.load(File.read(File.dirname(__FILE__) + '/../config.yml'))
       end
     end
+
+    def movies
+      MovieFinder.new(settings.pmdb).movies
+    end
   end
 
   configure do
@@ -43,9 +47,7 @@ class PMDb < Sinatra::Base
   end
 
   get "/" do
-    p settings.pmdb
-    require "pp"
-    pp MovieFinder.new(settings.pmdb).movies
+    @movies = Yajl::Encoder.encode movies
     haml :index
   end
 
