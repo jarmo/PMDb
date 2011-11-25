@@ -4,39 +4,35 @@ class MovieFinder
   end
 
   def movies
-    imdb_info(objectify(files(directories)))
+    parse movie_files
   end
 
   private
 
-  def directories
-    @options["dirs"].reduce([]) do |memo, dir|
-      memo << Pathname.new(dir).children.select(&:directory?)
-    end.flatten
-  end
+  def movie_files
+    @options["directories"].reduce({}) do |result_memo, dir|
+      dirs = Pathname.new(dir).children.select(&:directory?)
+      movie_files_in_dirs = dirs.reduce([]) do |memo, d|
+        file = d.children.detect do |f|
+          f.file? && (f.nfo? || f.video?)
+        end
+        memo << file
+      end.compact
 
-  def files(dirs)
-    dirs.reduce([]) do |memo, dir|
-      file = dir.children.detect do |f|
-        f.file? && (f.nfo? || f.video?)
-      end
-      memo << file
-    end.compact
-  end
-
-  def objectify(files)
-    Parallel.map(files, :in_threads => 5) do |f|
-      {imdb: IMDb.new(f), path: f.dirname.to_s, mtime: f.mtime}
+      result_memo[dir] ||= []
+      result_memo[dir] += movie_files_in_dirs
+      result_memo
     end
   end
 
-  def imdb_info(objs)
-    objs.each_slice(5) do |bulk_objs|
-      Parallel.each(bulk_objs, :in_threads => 5) do |obj|
-        obj[:imdb].parse_response Net::HTTP.get_response(URI.parse(obj[:imdb].scraping_url)).body
-      end
+  def parse(dirs)
+    dirs.each_pair do |dir, files|
+     movie_objects = Parallel.map(files, :in_threads => 0) do |file|
+       {imdb: IMDb.new(file), path: file.dirname.to_s, mtime: file.mtime}
+     end
+     dirs[dir] = movie_objects
     end
-
-    objs
+    dirs
   end
+
 end

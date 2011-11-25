@@ -4,6 +4,24 @@ class IMDb
   def initialize(file)
     @file = file
     parse_file file
+    parse_imdb
+  end
+
+  private
+
+  def parse_file(file)
+    @url = parse_url file
+    if @url
+      @movie_id = @url.split("/").last
+    else
+      @name, @year = parse_name_and_year file
+    end
+  end
+
+  def parse_imdb
+    suffix = @movie_id ? "i=#{@movie_id}" : "t=#{@name}&y=#{@year}"
+    scraping_url = URI.encode "http://imdbapi.com/?#{suffix}"    
+    parse_response Net::HTTP.get_response(URI.parse(scraping_url)).body
   end
 
   def parse_response response
@@ -17,22 +35,6 @@ class IMDb
     @genres = json[:Genre].split(", ")
     @movie_id = json[:ID]
     @url = "http://akas.imdb.com/title/#{@movie_id}"
-  end
-
-  def scraping_url 
-    suffix = @movie_id ? "i=#{@movie_id}" : "t=#{@name}&y=#{@year}"
-    URI.encode "http://imdbapi.com/?#{suffix}"
-  end
-
-  private
-
-  def parse_file(file)
-    @url = parse_url file
-    if @url
-      @movie_id = @url.split("/").last
-    else
-      @name, @year = parse_name_and_year file
-    end
   end
 
   def parse_url(file)
