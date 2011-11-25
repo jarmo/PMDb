@@ -8,9 +8,7 @@ require 'compass'
 require 'yaml'
 require 'pathname'
 require 'parallel'
-require 'em-http-request'
-require 'em-synchrony'
-require 'em-synchrony/em-http'
+require 'net/http'
 require 'yajl'
 
 require_relative 'pathname_ext'
@@ -46,7 +44,8 @@ class PMDb < Sinatra::Base
 
   get "/" do
     p settings.pmdb
-    MovieFinder.new(settings.pmdb).movies
+    require "pp"
+    pp MovieFinder.new(settings.pmdb).movies
     haml :index
   end
 

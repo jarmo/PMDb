@@ -31,17 +31,9 @@ class MovieFinder
   end
 
   def imdb_info(objs)
-    EM.synchrony do
-      objs.each_slice(5) do |bulk_objs|
-        multi = EM::Synchrony::Multi.new
-        bulk_objs.each do |obj|
-          multi.add obj, EM::HttpRequest.new(obj[:imdb].scraping_url).aget
-        end
-
-        res = multi.perform
-        Parallel.each(res.responses[:callback], :in_threads => 5) do |k, v|
-          k[:imdb].parse_response v.response
-        end
+    objs.each_slice(5) do |bulk_objs|
+      Parallel.each(bulk_objs, :in_threads => 5) do |obj|
+        obj[:imdb].parse_response Net::HTTP.get_response(URI.parse(obj[:imdb].scraping_url)).body
       end
     end
 
