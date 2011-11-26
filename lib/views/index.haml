@@ -2,97 +2,26 @@
 :javascript
   MOVIES = #{@movies};
 
-.movies
-  .header
-    %span.dir 25 movies at c:\movies
-  .movie
-    %span.name
-      %a(href = "#") Something
-    %span.genre Drama, Action, THriller, Comedy
-    %span.score 8.5 (12.123)
-    .details
-      .detail
-        %span.keyword alternative name:
-        %span huinamuina film
-      .detail
-        %span.keyword plot:
-        %span Elas kord yhes metsas karu, kellele meeldis süüa mustikaid. Kahjuks aga vihma ei sadanud, mistõttu mustikad said kiiresti otsa. Kahjuks. Aga see ei loe, sest karumõmm puges koopasse magama lootuses, et kui uuesti ärkab, siis on olukord juba väga palju muutunud. Lootuses.
-      .detail
-        %span.keyword path:
-        %span c:\filmid\film1\film1.avi
-      .detail
-        %span.keyword added:
-        %span 22.07.2010
-  .movie
-    %span.name Something
-    %span.genre Drama, Action, THriller, Comedy
-    %span.score 8.5 (12.123)
-    .details
-      .detail
-        %span.keyword alternative name:
-        %span huinamuina film
-      .detail
-        %span.keyword plot:
-        %span Elas kord yhes metsas karu, kellele meeldis süüa mustikaid. Kahjuks aga vihma ei sadanud, mistõttu mustikad said kiiresti otsa. Kahjuks. Aga see ei loe, sest karumõmm puges koopasse magama lootuses, et kui uuesti ärkab, siis on olukord juba väga palju muutunud. Lootuses.
-      .detail
-        %span.keyword path:
-        %span c:\filmid\film1\film1.avi
-      .detail
-        %span.keyword added:
-        %span 22.07.2010
-
-.movies
-  .header
-    %span.dir 25 movies at c:\movies
-  .movie
-    %span.name
-      %a(href = "#") Something
-    %span.genre Drama, Action, THriller, Comedy
-    %span.score 8.5 (12.123)
-    .details
-      .detail
-        %span.keyword alternative name:
-        %span huinamuina film
-      .detail
-        %span.keyword plot:
-        %span Elas kord yhes metsas karu, kellele meeldis süüa mustikaid. Kahjuks aga vihma ei sadanud, mistõttu mustikad said kiiresti otsa. Kahjuks. Aga see ei loe, sest karumõmm puges koopasse magama lootuses, et kui uuesti ärkab, siis on olukord juba väga palju muutunud. Lootuses.
-      .detail
-        %span.keyword path:
-        %span c:\filmid\film1\film1.avi
-      .detail
-        %span.keyword added:
-        %span 22.07.2010
-  .movie.even
-    %span.name Something
-    %span.genre Drama, Action, THriller, Comedy
-    %span.score 8.5 (12.123)
-    .details
-      .detail
-        %span.keyword alternative name:
-        %span huinamuina film
-      .detail
-        %span.keyword plot:
-        %span Elas kord yhes metsas karu, kellele meeldis süüa mustikaid. Kahjuks aga vihma ei sadanud, mistõttu mustikad said kiiresti otsa. Kahjuks. Aga see ei loe, sest karumõmm puges koopasse magama lootuses, et kui uuesti ärkab, siis on olukord juba väga palju muutunud. Lootuses.
-      .detail
-        %span.keyword path:
-        %span c:\filmid\film1\film1.avi
-      .detail
-        %span.keyword added:
-        %span 22.07.2010
-  .movie
-    %span.name Something
-    %span.genre Drama, Action, THriller, Comedy
-    %span.score 8.5 (12.123)
-    .details
-      .detail
-        %span.keyword alternative name:
-        %span huinamuina film
-      .detail
-        %span.keyword plot:
-        %span Elas kord yhes metsas karu, kellele meeldis süüa mustikaid. Kahjuks aga vihma ei sadanud, mistõttu mustikad said kiiresti otsa. Kahjuks. Aga see ei loe, sest karumõmm puges koopasse magama lootuses, et kui uuesti ärkab, siis on olukord juba väga palju muutunud. Lootuses.
-      .detail
-        %span.keyword path:
-        %span c:\filmid\film1\film1.avi
-      .detail
-        %span.keyword added:
-        %span 22.07.2010
+%script(type = "text/x-mustache")
+  .movies
+    .header
+      %span.dir {{count}} movies in {{dir}}
+    {{#movies}}
+    .movie
+      %span.name
+        %a(href = "{{imdb.url}}") {{imdb.name}}
+      %span.year {{imdb.year}}
+      %span.genre {{imdb.genres}}
+      %span.score {{imdb.score}}
+      %span.votes {{imdb.votes}}
+      .details
+        .detail
+          %span.keyword plot:
+          %span {{imdb.plot}}
+        .detail
+          %span.keyword path:
+          %span {{path}}
+        .detail
+          %span.keyword added:
+          %span {{mtime}}
+    {{/movies}}

@@ -1,5 +1,5 @@
 class IMDb
-  attr_reader :url, :movie_id, :year, :name, :score, :votes, :genres
+  attr_reader :url, :movie_id, :year, :name, :score, :votes, :plot, :genres
 
   def initialize(file)
     @file = file
@@ -8,7 +8,7 @@ class IMDb
   end
 
   def to_json
-    Yajl::Encoder.encode :url => url, :movie_id => movie_id, :year => year, 
+    Yajl::Encoder.encode :url => url, :movie_id => movie_id, :year => year, :plot => plot,
                          :name => name, :score => score, :votes => votes, :genres => genres
   end
 
@@ -37,7 +37,8 @@ class IMDb
     @year = json[:Year]
     @score = json[:Rating]
     @votes = json[:Votes]
-    @genres = json[:Genre].split(", ")
+    @plot = json[:Plot]
+    @genres = json[:Genre]
     @movie_id = json[:ID]
     @url = "http://akas.imdb.com/title/#{@movie_id}"
   end
