@@ -2,6 +2,7 @@ class IMDb
   attr_reader :url, :movie_id, :year, :name, :score, :votes, :plot, :genres
 
   def initialize(file)
+    @year = @name = @score = @votes = @plot = @genres = "-"
     @file = file
     parse_file file
     parse_imdb
@@ -27,6 +28,8 @@ class IMDb
     suffix = @movie_id ? "i=#{@movie_id}" : "t=#{@name}&y=#{@year}"
     scraping_url = URI.encode "http://imdbapi.com/?#{suffix}"    
     parse_response Net::HTTP.get_response(URI.parse(scraping_url)).body
+  rescue Exception => e
+    puts "Got error while trying to fetch imdb info: #{e.message}"
   end
 
   def parse_response response
@@ -36,7 +39,7 @@ class IMDb
     @name = json[:Title]
     @year = json[:Year]
     @score = json[:Rating]
-    @votes = json[:Votes]
+    @votes = json[:Votes].reverse.gsub(/(\d{3})/, '\1 \2').reverse.strip
     @plot = json[:Plot]
     @genres = json[:Genre]
     @movie_id = json[:ID]

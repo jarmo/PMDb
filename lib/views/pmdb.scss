@@ -60,7 +60,7 @@ h1 {
   }
   .year {display: inline-block; width: 5%}
   .genre {display: inline-block; width: 35%}
-  .score {display: inline-block; text-align: right; width: 5%}
+  .score {display: inline-block; width: 5%}
   .votes {display: inline-block; width: 6%; text-align: right}
 
   @include box-shadow(#ccc 5px 5px 20px);

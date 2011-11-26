@@ -31,8 +31,9 @@ class MovieFinder
 
   def parse(dirs)
     dirs.each_pair do |dir, files|
+     parent_dir = Pathname.new(dir)
      movie_objects = Parallel.map(files, :in_threads => 5) do |file|
-      {imdb: IMDb.new(file), path: file.dirname.to_s, mtime: file.mtime.strftime("%d.%m.%Y")}
+      {imdb: IMDb.new(file), path: file.dirname.relative_path_from(parent_dir).to_s, mtime: file.mtime.strftime("%d.%m.%Y")}
      end
      dirs[dir] = movie_objects
     end
