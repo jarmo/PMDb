@@ -5,7 +5,9 @@
 %script(type = "text/x-mustache")
   .movies
     .header
-      %span.dir {{count}} movies in {{dir}}
+      %span.dir
+        %img(src="images/dir.png")
+        {{count}} movies in {{dir}}
     {{#movies}}
     .movie
       %span.name
