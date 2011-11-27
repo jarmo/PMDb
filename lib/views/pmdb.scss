@@ -40,9 +40,11 @@ body {
     background-color: #eaefff;
     position: relative;
     @include border-radius(10px);          
+    &:hover {background-color: #d9e2ff}
+
     .glass {
       position: absolute;
-      top: 3px;
+      top: 2px;
       left: 3px;
       i {
         display:block;
@@ -51,12 +53,14 @@ body {
         background-image: url(../images/search.png);
       }
     }
+
     input {
       @include border-radius(10px);          
       width: 180px;
-      margin-left: 20px;
+      height: 100%;
+      margin-left: 21px;
       color: #669;
-      background-color: #eaefff;
+      background-color: transparent;
       border: 0;
     }
   }
