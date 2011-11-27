@@ -6,10 +6,10 @@ class MovieFinder
   end
 
   def movies
-    @movies = File.exists?(MOVIES_CACHE) ? File.open(MOVIES_CACHE, "r") {|f| YAML.load f} : scan_movies
+    @movies = File.exists?(MOVIES_CACHE) ? File.open(MOVIES_CACHE, "r") {|f| YAML.load f} : rescan
   end
 
-  def scan_movies
+  def rescan
     movies = parse movie_files
     File.open(MOVIES_CACHE, "w") {|f| YAML.dump movies, f}
     movies
@@ -43,13 +43,15 @@ class MovieFinder
   end
 
   def parse(dirs)
+    t = Time.now
     dirs.each_pair do |dir, files|
      parent_dir = Pathname.new(dir)
-     movie_objects = Parallel.map(files, :in_threads => 5) do |file|
+     movie_objects = Parallel.map(files, :in_threads => 20) do |file|
       {imdb: IMDb.new(file), path: file.dirname.relative_path_from(parent_dir).to_s, mtime: file.mtime.strftime("%d.%m.%Y")}
      end
      dirs[dir] = movie_objects
     end
+    puts "scanning-parsing took #{Time.now - t}"
     dirs
   end
 

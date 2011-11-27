@@ -2,6 +2,10 @@
 :javascript
   MOVIES = #{@movies};
 
+#control
+  %img.loader(src="images/loader.gif")
+  %img.rescan(src="images/rescan.png" alt="rescan movies")
+
 %script(type = "text/x-mustache")
   .movies
     .header

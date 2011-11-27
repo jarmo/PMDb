@@ -26,6 +26,10 @@ class PMDb < Sinatra::Base
     def movies
       MovieFinder.new(settings.pmdb).movies
     end
+
+    def rescan_movies
+      MovieFinder.new(settings.pmdb).rescan
+    end
   end
 
   configure do
@@ -49,6 +53,11 @@ class PMDb < Sinatra::Base
   get "/" do
     @movies = Yajl::Encoder.encode movies
     haml :index
+  end
+
+  get "/rescan" do
+    content_type 'application/json', :charset => 'utf-8'
+    Yajl::Encoder.encode rescan_movies
   end
 
   get '/css/pmdb.css' do
