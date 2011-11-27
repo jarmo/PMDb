@@ -11,15 +11,19 @@
     .header
       %span.dir
         %img(src="images/dir.png")
-        {{count}} movies in {{dir}}
+        %span.count {{count}}
+        movies in {{dir}}
     {{#movies}}
-    .movie
+    .movie(data-dir="{{dir}}" data-path="{{path}}")
       %span.name
         %a(href = "{{imdb.url}}") {{imdb.name}}
       %span.year {{imdb.year}}
       %span.genre {{imdb.genres}}
       %span.score {{imdb.score}}
-      %span.votes {{imdb.votes}}
+      %span.votes 
+        {{imdb.votes}}
+        .hidden
+          %img.remove(src="images/remove.png")
       .details
         .detail
           %span.keyword plot:

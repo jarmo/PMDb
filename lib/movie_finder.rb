@@ -1,18 +1,34 @@
 class MovieFinder
   MOVIES_CACHE = File.dirname(__FILE__) + "/movies.yml"
+  HIDDEN_MOVIES = File.dirname(__FILE__) + "/hidden.yml"
 
   def initialize(options)
     @options = options
+    @hidden_movies = File.exists?(HIDDEN_MOVIES) ? File.open(HIDDEN_MOVIES, "r") {|f| YAML.load f} : {}
   end
 
   def movies
     @movies = File.exists?(MOVIES_CACHE) ? File.open(MOVIES_CACHE, "r") {|f| YAML.load f} : rescan
+    filter_hidden @movies
   end
 
   def rescan
     movies = parse movie_files
     File.open(MOVIES_CACHE, "w") {|f| YAML.dump movies, f}
+    filter_hidden movies
+  end
+
+  def filter_hidden movies
+    @hidden_movies.each_pair do |dir, hidden_movies|
+      movies[dir].delete_if {|movie| hidden_movies.include? movie[:path]}
+    end
     movies
+  end
+
+  def hide_movie dir, path
+    @hidden_movies[dir] ||= []
+    @hidden_movies[dir] << path
+    File.open(HIDDEN_MOVIES, "w") {|f| YAML.dump @hidden_movies, f}
   end
 
   def to_json

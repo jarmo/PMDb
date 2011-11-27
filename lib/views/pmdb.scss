@@ -77,8 +77,18 @@ h1 {
   }
   .year {display: inline-block; width: 5%}
   .genre {display: inline-block; width: 35%}
-  .score {display: inline-block; width: 5%}
-  .votes {display: inline-block; width: 6%; text-align: right}
+  .score {display: inline-block; width: 3%}
+  .votes {
+    display: inline-block;
+    width: 8%;
+    text-align: right;
+    .hidden {
+      display: inline-block;
+      width: 10px;
+      img {display: none}      
+      .remove {cursor: pointer}
+    }
+  }
 
   @include box-shadow(#ccc 5px 5px 20px);
   @include border-bottom-radius(10px);

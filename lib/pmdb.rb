@@ -30,6 +30,10 @@ class PMDb < Sinatra::Base
     def rescan_movies
       MovieFinder.new(settings.pmdb).rescan
     end
+
+    def hide_movie dir, path
+      MovieFinder.new(settings.pmdb).hide_movie dir, path
+    end
   end
 
   configure do
@@ -58,6 +62,11 @@ class PMDb < Sinatra::Base
   get "/rescan" do
     content_type 'application/json', :charset => 'utf-8'
     Yajl::Encoder.encode rescan_movies
+  end
+
+  post "/remove" do
+    hide_movie params["dir"], params["path"]
+    "done"
   end
 
   get '/css/pmdb.css' do
