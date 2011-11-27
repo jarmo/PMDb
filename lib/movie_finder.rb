@@ -1,10 +1,22 @@
 class MovieFinder
+  MOVIES_CACHE = File.dirname(__FILE__) + "/movies.yml"
+
   def initialize(options)
     @options = options
   end
 
   def movies
-    @movies = parse movie_files
+    if File.exists? MOVIES_CACHE
+      @movies = File.open(MOVIES_CACHE, "r") {|f| YAML.load f}
+    else
+     @movies = scan_movies
+    end
+  end
+
+  def scan_movies
+    movies = parse movie_files
+    File.open(MOVIES_CACHE, "w") {|f| YAML.dump movies, f}
+    movies
   end
 
   def to_json
