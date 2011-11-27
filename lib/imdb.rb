@@ -5,6 +5,7 @@ class IMDb
     @year = @name = @score = @votes = @plot = @genres = "N/A"
     parse_file file
     parse_imdb
+    @url = url_from(@name) unless @url
   end
 
   def to_json
@@ -49,9 +50,9 @@ class IMDb
     urls.detect {|url| url =~ /imdb/i}
   end
 
-  #def url_from(name)
-    #URI.escape("http://akas.imdb.com/find?s=all&x=0&y=0&q=#{name}")
-  #end
+  def url_from(name)
+    URI.escape("http://akas.imdb.com/find?s=all&x=0&y=0&q=#{URI.encode(name)}")
+  end
 
   def parse_name_and_year(file)
     name = clean_dir(file)

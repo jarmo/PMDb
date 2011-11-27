@@ -83,6 +83,8 @@ h1 {
   text-align: left;
   background-color: #fff;
 
+  a:visited {color: #aac}
+
   border: 1px solid $blue-color;
 
   .header {
@@ -110,10 +112,10 @@ h1 {
   .name {
     display: inline-block;
     padding-left: 10px;
-    width: 45%;
+    width: 40%;
   }
   .year {display: inline-block; width: 5%}
-  .genre {display: inline-block; width: 35%}
+  .genre {display: inline-block; width: 40%}
   .score {display: inline-block; width: 3%}
   .votes {
     display: inline-block;
