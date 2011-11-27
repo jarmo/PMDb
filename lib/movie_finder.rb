@@ -14,7 +14,7 @@ class MovieFinder
   private
 
   def movie_files
-    @options["directories"].reduce({}) do |result_memo, dir|
+    @options["directories"].select {|dir| Dir.exists? dir}.reduce({}) do |result_memo, dir|
       dirs = Pathname.new(dir).children.select(&:directory?)
       movie_files_in_dirs = dirs.reduce([]) do |memo, d|
         file = d.children.detect do |f|

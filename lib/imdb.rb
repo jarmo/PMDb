@@ -2,7 +2,7 @@ class IMDb
   attr_reader :url, :movie_id, :year, :name, :score, :votes, :plot, :genres
 
   def initialize(file)
-    @year = @name = @score = @votes = @plot = @genres = "-"
+    @year = @name = @score = @votes = @plot = @genres = "N/A"
     @file = file
     parse_file file
     parse_imdb
@@ -17,11 +17,8 @@ class IMDb
 
   def parse_file(file)
     @url = parse_url file
-    if @url
-      @movie_id = @url.split("/").last
-    else
-      @name, @year = parse_name_and_year file
-    end
+    @movie_id = @url.split("/").last if @url
+    @name, @year = parse_name_and_year file
   end
 
   def parse_imdb
@@ -78,6 +75,6 @@ class IMDb
     parent_dirname = file.dirname.basename.to_s.gsub(/['"]/, "").gsub(/[-._]/, " ").squeeze(" ")
     excluded_regexp = /^(?:\(incomplete\)-)?(.*?)(?:#{excluded_keywords.join(" | ")})/i
     matched_name = parent_dirname.scan(excluded_regexp).flatten.first
-    matched_name.empty? ? parent_dirname : matched_name
+    matched_name || parent_dirname
   end
 end

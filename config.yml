@@ -1,3 +1,4 @@
 port: 7000
 directories:
  - c:/users/jarmo/downloads/avi
+ - w:\avi
