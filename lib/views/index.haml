@@ -3,8 +3,12 @@
   MOVIES = #{@movies};
 
 #control
-  %img.loader(src="images/loader.gif")
-  %img.rescan(src="images/rescan.png" alt="rescan movies")
+  %span.right
+    %a(href="#") name
+    %a(href="#") score
+    %a(href="#") date
+    %img.loader(src="images/loader.gif")
+    %img.rescan(src="images/rescan.png" alt="rescan movies")
   %span.search
     %span.glass
       %i

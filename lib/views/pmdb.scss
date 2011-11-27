@@ -25,11 +25,14 @@ body {
 #control {
   height: 27px;
   margin: 0 15px 0 15px;
-  img {
+  .right {
     float: right;
-    margin-top: 9px;
-    &.loader {display: none}
-    &.rescan {cursor: pointer}
+    font-size: 12px;
+    img {
+      margin-top: 9px;
+      &.loader {display: none}
+      &.rescan {cursor: pointer}
+    }
   }
   .search {
     display: inline-block;
