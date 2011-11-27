@@ -6,11 +6,7 @@ class MovieFinder
   end
 
   def movies
-    if File.exists? MOVIES_CACHE
-      @movies = File.open(MOVIES_CACHE, "r") {|f| YAML.load f}
-    else
-     @movies = scan_movies
-    end
+    @movies = File.exists?(MOVIES_CACHE) ? File.open(MOVIES_CACHE, "r") {|f| YAML.load f} : scan_movies
   end
 
   def scan_movies
@@ -26,14 +22,18 @@ class MovieFinder
   private
 
   def movie_files
-    @options["directories"].select {|dir| Dir.exists? dir}.reduce({}) do |result_memo, dir|
-      dirs = Pathname.new(dir).children.select(&:directory?)
-      movie_files_in_dirs = dirs.reduce([]) do |memo, d|
-        file = d.children.detect do |f|
-          f.file? && (f.nfo? || f.video?)
-        end
-        memo << file
-      end.compact
+    @options["directories"].reduce({}) do |result_memo, dir|
+      movie_files_in_dirs = []
+
+      if File.exist? dir
+        dirs = Pathname.new(dir).children.select(&:directory?)
+        movie_files_in_dirs = dirs.reduce([]) do |memo, d|
+          file = d.children.detect do |f|
+            f.file? && (f.nfo? || f.video?)
+          end
+          memo << file
+        end.compact
+      end
 
       result_memo[dir] ||= []
       result_memo[dir] += movie_files_in_dirs
