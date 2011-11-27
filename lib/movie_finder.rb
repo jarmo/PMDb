@@ -24,6 +24,7 @@ class MovieFinder
   def movie_files
     @options["directories"].reduce({}) do |result_memo, dir|
       movie_files_in_dirs = []
+      dir = dir.gsub(File::ALT_SEPARATOR, File::SEPARATOR)
 
       if File.exist? dir
         dirs = Pathname.new(dir).children.select(&:directory?)
