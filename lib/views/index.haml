@@ -4,9 +4,9 @@
 
 #control
   %span.right
-    %a(href="#") name
-    %a(href="#") score
-    %a(href="#") date
+    %a(href="#" data-sort="imdb.name") name
+    %a(href="#" data-sort="imdb.score") score
+    %a(href="#" data-sort="mtime") date
     %img.loader(src="images/loader.gif")
     %img.rescan(src="images/rescan.png" alt="rescan movies")
   %span.search
@@ -41,5 +41,5 @@
           %span {{path}}
         .detail
           %span.keyword added:
-          %span {{mtime}}
+          %span {{mtime_s}}
     {{/movies}}
