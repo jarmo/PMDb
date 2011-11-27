@@ -28,12 +28,15 @@ body {
   .right {
     float: right;
     font-size: 12px;
-    img {
-      width: 16px;
-      height: 16px;
-      margin-top: 5px;
-      &.loader {display: none}
-      &.rescan {cursor: pointer}
+    .images {
+      display: inline-block;
+      width: 20px;
+      height: 18px;
+      img {
+        margin-top: 5px;
+        &.loader {display: none}
+        &.rescan {cursor: pointer}
+      }
     }
   }
   .search {
