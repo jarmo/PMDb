@@ -13,14 +13,14 @@ class MovieFinder
   end
 
   def rescan
-    movies = parse movie_files
+    movies = parse filter_hidden(movie_files)
     File.open(MOVIES_CACHE, "w") {|f| YAML.dump movies, f}
-    filter_hidden movies
+    movies
   end
 
   def filter_hidden movies
     @hidden_movies.each_pair do |dir, hidden_movies|
-      movies[dir].delete_if {|movie| hidden_movies.include? movie[:path]}
+      movies[dir].delete_if {|movie| hidden_movies.include?(movie.is_a?(Pathname) ? movie.dirname.basename.to_s : movie[:path])}
     end
     movies
   end

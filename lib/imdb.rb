@@ -3,7 +3,6 @@ class IMDb
 
   def initialize(file)
     @year = @name = @score = @votes = @plot = @genres = "N/A"
-    @file = file
     parse_file file
     parse_imdb
   end
@@ -46,7 +45,7 @@ class IMDb
   def parse_url(file)
     return unless file.nfo?
 
-    urls = URI.extract(@file.read, "http")
+    urls = URI.extract(file.read, "http")
     urls.detect {|url| url =~ /imdb/i}
   end
 
