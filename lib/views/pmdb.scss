@@ -29,6 +29,8 @@ body {
     float: right;
     font-size: 12px;
     img {
+      width: 16px;
+      height: 16px;
       margin-top: 5px;
       &.loader {display: none}
       &.rescan {cursor: pointer}
