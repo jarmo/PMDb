@@ -64,7 +64,7 @@ class MovieFinder
   end
 
   def parse(dirs)
-    print "Fetching data from IMDb"
+    print "Fetching data from IMDb..."
     t = Time.now
     dirs.each_pair do |dir, files|
      movie_objects = Parallel.map_with_index(files, :in_threads => 10) do |file, i|
@@ -74,7 +74,7 @@ class MovieFinder
      end
      dirs[dir] = movie_objects
     end
-    print " completed in #{Time.now - t}s\n"
+    print " done in #{Time.now - t}s\n"
     dirs
   end
 

@@ -36,7 +36,7 @@ class IMDb
 
     @name = movie.title
     @year = movie.year.to_s
-    @score = movie.rating
+    @score = movie.rating.to_s
     @votes = movie.votes.to_s.reverse.gsub(/(\d{3})/, '\1 \2').reverse.strip
     @plot = movie.plot
     @genres = movie.genres.join(", ")

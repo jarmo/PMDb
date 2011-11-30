@@ -47,7 +47,7 @@ class PMDb < Sinatra::Base
     set :scss, Compass.sass_engine_options
     set :port, pmdb_config["port"]
     set(:pmdb) {pmdb_config}
-    enable :logging
+    disable :logging
     disable :threaded
   end
 
