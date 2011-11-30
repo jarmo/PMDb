@@ -4,8 +4,8 @@
 
 #control
   %span.right
-    %a(href="#" data-sort="imdb.name") name
-    %a(href="#" data-sort="imdb.score") score
+    %a(href="#" data-sort="movie.name") name
+    %a(href="#" data-sort="movie.score") score
     %a(href="#" data-sort="mtime") date
     %span.images
       %img.loader(src="images/loader.gif")
@@ -25,18 +25,18 @@
     {{#movies}}
     .movie(data-dir="{{dir}}" data-path="{{path}}")
       %span.name
-        %a(href = "{{imdb.url}}") {{imdb.name}}
-      %span.year {{imdb.year}}
-      %span.genre {{imdb.genres}}
-      %span.score {{imdb.score}}
+        %a(href = "{{movie.url}}") {{movie.name}}
+      %span.year {{movie.year}}
+      %span.genre {{movie.genres}}
+      %span.score {{movie.score}}
       %span.votes 
-        {{imdb.votes}}
+        {{movie.votes}}
         .hidden
           %img.remove(src="images/remove.png")
       .details
         .detail
           %span.keyword plot:
-          %span {{imdb.plot}}
+          %span {{movie.plot}}
         .detail
           %span.keyword dir:
           %span {{path}}

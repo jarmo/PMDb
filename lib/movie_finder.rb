@@ -70,7 +70,7 @@ class MovieFinder
      movie_objects = Parallel.map_with_index(files, :in_threads => 10) do |file, i|
       print "." if i % 5 == 0
       file_mtime = file.mtime
-      {imdb: IMDb.new(file), path: file.dirname.basename.to_s, mtime: file_mtime, mtime_s: file_mtime.strftime("%d.%m.%Y")}
+      {movie: Movie.new(file), path: file.dirname.basename.to_s, mtime: file_mtime, mtime_s: file_mtime.strftime("%d.%m.%Y")}
      end
      dirs[dir] = movie_objects
     end

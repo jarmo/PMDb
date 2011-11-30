@@ -1,4 +1,4 @@
-class IMDb
+class Movie
   attr_reader :url, :movie_id, :year, :name, :score, :votes, :plot, :genres
 
   def initialize(file)

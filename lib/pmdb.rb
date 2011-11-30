@@ -14,7 +14,7 @@ require 'imdb'
 
 require_relative 'pathname_ext'
 require_relative 'movie_finder'
-require_relative 'imdb'
+require_relative 'movie'
 
 class PMDb < Sinatra::Base
   helpers do
