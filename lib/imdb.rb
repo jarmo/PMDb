@@ -17,30 +17,31 @@ class IMDb
 
   def parse_file(file)
     @url = parse_url file
-    @movie_id = @url.split("/").last if @url
+    @movie_id = @url.scan(/tt(\d+)/).flatten.first if @url
     @name, @year = parse_name_and_year file
   end
 
   def parse_imdb
-    suffix = @movie_id ? "i=#{@movie_id}" : "t=#{@name}&y=#{@year}"
-    scraping_url = URI.encode "http://imdbapi.com/?#{suffix}"    
-    parse_response Net::HTTP.get_response(URI.parse(scraping_url)).body
-  rescue Exception => e
-    puts "Got error while trying to fetch imdb info: #{e.message}"
+    if @movie_id
+      movie = ::Imdb::Movie.new(@movie_id)
+    else
+      result = ::Imdb::Search.new(@name)
+      movie = result.movies.first if result.movies.size == 1
+    end
+    parse_response movie
   end
 
-  def parse_response response
-    json = Yajl::Parser.parse response, :symbolize_keys => true
-    return unless json[:Response] == "True"
+  def parse_response movie
+    return unless movie
 
-    @name = json[:Title]
-    @year = json[:Year]
-    @score = json[:Rating]
-    @votes = json[:Votes].reverse.gsub(/(\d{3})/, '\1 \2').reverse.strip
-    @plot = json[:Plot]
-    @genres = json[:Genre]
-    @movie_id = json[:ID]
-    @url = "http://akas.imdb.com/title/#{@movie_id}"
+    @name = movie.title
+    @year = movie.year.to_s
+    @score = movie.rating
+    @votes = movie.votes.to_s.reverse.gsub(/(\d{3})/, '\1 \2').reverse.strip
+    @plot = movie.plot
+    @genres = movie.genres.join(", ")
+    @movie_id = movie.id
+    @url = movie.url.gsub("/combined", "")
   end
 
   def parse_url(file)
@@ -51,7 +52,7 @@ class IMDb
   end
 
   def url_from(name)
-    URI.escape("http://akas.imdb.com/find?s=all&x=0&y=0&q=#{URI.encode(name)}")
+    URI.escape("http://akas.imdb.com/find?s=all&q=#{name}")
   end
 
   def parse_name_and_year(file)
@@ -72,9 +73,9 @@ class IMDb
       telesync subfix dirfix screener scr cam nfofix readnfo dsr workprint mdvdr bdrip
       stv extended dvdrscreener dvdscreener bdscr)
 
-    parent_dirname = file.dirname.basename.to_s.gsub(/['"]/, "").gsub(/[-._]/, " ").squeeze(" ")
+    dirname = file.dirname.basename.to_s.gsub(/['"]/, "").gsub(/[-._]/, " ").squeeze(" ")
     excluded_regexp = /^(?:\(incomplete\)-)?(.*?)(?:#{excluded_keywords.join(" | ")})/i
-    matched_name = parent_dirname.scan(excluded_regexp).flatten.first
-    matched_name || parent_dirname
+    matched_name = dirname.scan(excluded_regexp).flatten.first
+    matched_name || dirname
   end
 end

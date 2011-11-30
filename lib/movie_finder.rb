@@ -38,7 +38,9 @@ class MovieFinder
   private
 
   def movie_files
-    @options["directories"].reduce({}) do |result_memo, dir|
+    print "Searching movies..."
+    t = Time.now
+    result = @options["directories"].reduce({}) do |result_memo, dir|
       movie_files_in_dirs = []
       dir = dir.gsub(File::ALT_SEPARATOR, File::SEPARATOR)
 
@@ -56,18 +58,23 @@ class MovieFinder
       result_memo[dir] += movie_files_in_dirs
       result_memo
     end
+    print " #{result.values.flatten.size} movies found in #{Time.now - t}s\n"
+
+    result
   end
 
   def parse(dirs)
+    print "Fetching data from IMDb"
     t = Time.now
     dirs.each_pair do |dir, files|
-     parent_dir = Pathname.new(dir)
-     movie_objects = Parallel.map(files, :in_threads => 5) do |file|
-      {imdb: IMDb.new(file), path: file.dirname.relative_path_from(parent_dir).to_s, mtime: file.mtime, mtime_s: file.mtime.strftime("%d.%m.%Y")}
+     movie_objects = Parallel.map_with_index(files, :in_threads => 10) do |file, i|
+      print "." if i % 5 == 0
+      file_mtime = file.mtime
+      {imdb: IMDb.new(file), path: file.dirname.basename.to_s, mtime: file_mtime, mtime_s: file_mtime.strftime("%d.%m.%Y")}
      end
      dirs[dir] = movie_objects
     end
-    puts "scanning-parsing took #{Time.now - t}"
+    print " completed in #{Time.now - t}s\n"
     dirs
   end
 

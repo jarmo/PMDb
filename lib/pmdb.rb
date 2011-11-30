@@ -10,6 +10,7 @@ require 'pathname'
 require 'parallel'
 require 'net/http'
 require 'yajl'
+require 'imdb'
 
 require_relative 'pathname_ext'
 require_relative 'movie_finder'
