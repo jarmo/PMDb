@@ -75,5 +75,5 @@ class PMDb < Sinatra::Base
     scss :pmdb
   end
 
-  run! if app_file == $0
+  run! if app_file == $0 && $LOADED_FEATURES.all? {|f| f !~ %r{/exerb/mkexy.rb}}
 end
