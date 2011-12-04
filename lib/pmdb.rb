@@ -75,5 +75,21 @@ class PMDb < Sinatra::Base
     scss :pmdb
   end
 
-  run! if app_file == $0 && $LOADED_FEATURES.all? {|f| f !~ %r{/exerb/mkexy.rb}}
+  if $LOADED_FEATURES.any? {|f| f =~ %r{/exerb/mkexy.rb}}
+    # make sure that at least one request has been done to trigger all
+    # autoloads for exerb
+    Thread.new do
+      loop do
+        begin
+          Net::HTTP.get_response(URI.parse('http://localhost:7000'))
+          break
+        rescue Exception
+          sleep 1
+        end
+      end
+      exit
+    end
+  end
+
+  run! if app_file == $0
 end
