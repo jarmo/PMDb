@@ -12,6 +12,7 @@ require 'imdb'
 require_relative 'pathname_ext'
 require_relative 'movie_finder'
 require_relative 'movie'
+require_relative 'temporary_movie'
 
 class PMDb < Sinatra::Base
   helpers do
@@ -31,6 +32,10 @@ class PMDb < Sinatra::Base
 
     def hide_movie dir, path
       MovieFinder.new(settings.pmdb).hide_movie dir, path
+    end
+
+    def add_temporary list
+      MovieFinder.new(settings.pmdb).temporary list
     end
   end
 
@@ -65,6 +70,11 @@ class PMDb < Sinatra::Base
   post "/remove" do
     hide_movie params["dir"], params["path"]
     "done"
+  end
+
+  get "/temporary" do
+    content_type 'application/json', :charset => 'utf-8'
+    Yajl::Encoder.encode add_temporary(params["list"])
   end
 
   get '/css/pmdb.css' do

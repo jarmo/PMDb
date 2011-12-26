@@ -1,9 +1,9 @@
 class Movie
   attr_reader :url, :movie_id, :year, :name, :score, :votes, :plot, :genres
 
-  def initialize(file)
+  def initialize(name)
     @year = @name = @score = @votes = @plot = @genres = "N/A"
-    parse_file file
+    parse name
     parse_imdb
     @url = url_from(@name) unless @url
   end
@@ -15,10 +15,10 @@ class Movie
 
   private
 
-  def parse_file(file)
+  def parse(file)
     @url = parse_url file
     @movie_id = @url.scan(/tt(\d+)/).flatten.first if @url
-    @name, @year = parse_name_and_year file
+    @name, @year = parse_name_and_year file.dirname.basename.to_s
   end
 
   def parse_imdb
@@ -55,8 +55,8 @@ class Movie
     URI.escape("http://akas.imdb.com/find?s=all&q=#{name}")
   end
 
-  def parse_name_and_year(file)
-    name = clean_dir(file)
+  def parse_name_and_year(movie_name)
+    name = clean movie_name
     year = name.scan(/\s?((?:19|20)\d{2})/).flatten.last
     if year
       name_without_year = name.gsub(/\s?#{year}$/, "")
@@ -65,7 +65,7 @@ class Movie
     return name, year
   end
 
-  def clean_dir(file)
+  def clean(movie_name)
     excluded_keywords = %w(
       unrated 720p 1080p 1080i repack rerip
       retail r5 dvd limited ee ts proper tc fs ws bluray hddvd subpack
@@ -73,9 +73,9 @@ class Movie
       telesync subfix dirfix screener scr cam nfofix readnfo dsr workprint mdvdr bdrip
       stv extended dvdrscreener dvdscreener bdscr dvd5 remastered x264 3d brrip)
 
-    dirname = file.dirname.basename.to_s.gsub(/['"]/, "").gsub(/[-._]/, " ").squeeze(" ")
+    movie_name = movie_name.gsub(/['"]/, "").gsub(/[-._]/, " ").squeeze(" ")
     excluded_regexp = /^(?:\(incomplete\)-)?(.*?)(?:#{excluded_keywords.join(" | ")} | s\d+e\d+)/i
-    matched_name = dirname.scan(excluded_regexp).flatten.first
-    matched_name || dirname
+    matched_name = movie_name.scan(excluded_regexp).flatten.first
+    matched_name || movie_name
   end
 end

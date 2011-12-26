@@ -8,12 +8,19 @@
     %a(href="#" data-sort="movie.score") score
     %a(href="#" data-sort="mtime") date
     %span.images
+      %img.add(src="images/add.png")  
       %img.loader(src="images/loader.gif")
       %img.rescan(src="images/rescan.png" alt="rescan movies")
   %span.search
     %span.glass
       %span
     %input(type='text')
+#add_area
+  %div
+    %h1 add movies
+    %textarea
+    %a.add(href="#") add
+    %img.loader(src="images/loader.gif")
 
 %script(type = "text/x-mustache")
   .movies

@@ -30,12 +30,12 @@ body {
     font-size: 12px;
     .images {
       display: inline-block;
-      width: 20px;
+      width: 40px;
       height: 18px;
       img {
         margin-top: 5px;
         &.loader {display: none}
-        &.rescan {cursor: pointer}
+        &.rescan, &.add {cursor: pointer}
       }
     }
   }
@@ -75,6 +75,27 @@ h1 {
   margin: 40px 0 50px 0;
   text-align: center;
   font-size: 18px;
+}
+
+#add_area {
+  @include border-radius(10px);          
+  @include background-image(linear-gradient(#e6e6e6, #f1f1f1, #fff));
+  h1 {font-size: 14px; text-align: center; margin: 5px;}
+  display: none;
+  width: 500px;
+  height: 180px;
+  textarea {
+    display: block;
+    margin: auto;
+    width: 90%;
+    height: 125px;
+    color: #669;
+    background-color: #f9f9f9;
+    border: 1px solid #d7e8d3;    
+  }
+
+  .loader {display: none;}
+  .add, .loader {float: right; margin-right: 21px}
 }
 
 .movies {

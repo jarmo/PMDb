@@ -8,8 +8,8 @@ class MovieFinder
   end
 
   def movies
-    @movies = File.exists?(MOVIES_CACHE) ? File.open(MOVIES_CACHE, "r") {|f| YAML.load f} : rescan
-    filter_hidden @movies
+    movies = File.exists?(MOVIES_CACHE) ? File.open(MOVIES_CACHE, "r") {|f| YAML.load f} : rescan
+    filter_hidden movies
   end
 
   def rescan
@@ -18,9 +18,13 @@ class MovieFinder
     movies
   end
 
+  def temporary(movies)
+    parse "temporary" => movies.split("\n").map {|m| {file: m.strip, path: m, mtime_s: "-"}}
+  end
+
   def filter_hidden movies
     @hidden_movies.each_pair do |dir, hidden_movies|
-      movies[dir].delete_if {|movie| hidden_movies.include?(movie.is_a?(Pathname) ? movie.dirname.basename.to_s : movie[:path])}
+      movies[dir].delete_if {|movie| hidden_movies.include? movie[:path]}
     end
     movies
   end
@@ -29,10 +33,6 @@ class MovieFinder
     @hidden_movies[dir] ||= []
     @hidden_movies[dir] << path
     File.open(HIDDEN_MOVIES, "w") {|f| YAML.dump @hidden_movies, f}
-  end
-
-  def to_json
-    Yajl::Encoder.encode @movies
   end
 
   private
@@ -50,8 +50,14 @@ class MovieFinder
           file = d.children.detect do |f|
             f.file? && (f.nfo? || f.video?)
           end
-          memo << file
-        end.compact
+          
+          if file
+            file_mtime = file.mtime
+            memo << {path: file.dirname.basename.to_s, mtime: file_mtime, mtime_s: file_mtime.strftime("%d.%m.%Y"), file: file}
+          end
+
+          memo
+        end
       end
 
       result_memo[dir] ||= []
@@ -66,11 +72,11 @@ class MovieFinder
   def parse(dirs)
     print "Fetching data from IMDb..."
     t = Time.now
-    dirs.each_pair do |dir, files|
-     movie_objects = Parallel.map_with_index(files, :in_threads => 10) do |file, i|
+    dirs.each_pair do |dir, movies|
+     movie_objects = Parallel.map_with_index(movies, :in_threads => 10) do |movie, i|
       print "." if i % 5 == 0
-      file_mtime = file.mtime
-      {movie: Movie.new(file), path: file.dirname.basename.to_s, mtime: file_mtime, mtime_s: file_mtime.strftime("%d.%m.%Y")}
+      movie[:movie] = movie[:file].is_a?(String) ? TemporaryMovie.new(movie[:file]) : Movie.new(movie[:file])
+      movie
      end
      dirs[dir] = movie_objects
     end
