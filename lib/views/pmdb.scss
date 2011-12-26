@@ -153,14 +153,25 @@ h1 {
   @include box-shadow(#ccc 5px 5px 20px);
   @include border-bottom-radius(10px);
 
-  .details {
-    display: none;
-    padding-left: 25px;
-    .keyword {color: #039}
-  }
+  .details {display: none}
 }
 
 a {
   color: #669;
   @include hover-link;
+}
+
+#tooltip {
+  @include border-radius(10px);          
+  @include background-image(linear-gradient(#e6e6e6, #f1f1f1, #fff));
+  @include box-shadow(#ccc 5px 5px 20px);
+  position: absolute;
+  display: none;
+  border: 1px solid #ccc;
+  padding: 2px;
+  background-color: $blue-color;
+  opacity: 0.9;
+  max-width: 500px;
+
+  .keyword {color: #039}
 }
