@@ -1,5 +1,5 @@
 require 'sinatra/base'
-require 'sinatra/reloader'
+require 'sass'
 require 'haml'
 require 'compass'
 require 'yaml'
@@ -43,6 +43,7 @@ class PMDb < Sinatra::Base
     Compass.configuration do |config|
       config.project_path = File.dirname(__FILE__)
       config.sass_dir = 'views'
+      config.output_style = :compressed
     end
 
     set :haml, {:format => :html5}
@@ -51,10 +52,6 @@ class PMDb < Sinatra::Base
     set(:pmdb) {pmdb_config}
     disable :logging
     disable :threaded
-  end
-
-  configure :development do
-    register Sinatra::Reloader
   end
 
   get "/" do
