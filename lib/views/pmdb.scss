@@ -100,7 +100,8 @@ h1 {
 
 .movies {
   width: 100%;
-  margin-bottom: 35px;
+  margin-bottom: 45px;
+  &:last-child {margin-bottom: 125px;}
   text-align: left;
   background-color: #fff;
 
