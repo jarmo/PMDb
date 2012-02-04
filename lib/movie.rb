@@ -5,7 +5,7 @@ class Movie
     @year = @name = @score = @votes = @plot = @genres = "N/A"
     parse name
     parse_imdb
-    @url = url_from(@name) unless @url
+    @url = url_from_name unless @url
   end
 
   def to_json
@@ -25,7 +25,7 @@ class Movie
     if @movie_id
       movie = ::Imdb::Movie.new(@movie_id)
     else
-      result = ::Imdb::Search.new(@name)
+      result = ::Imdb::Search.new(name_with_year)
       movie = result.movies.first if result.movies.size == 1
     end
     parse_response movie
@@ -51,8 +51,14 @@ class Movie
     urls.detect {|url| url =~ /imdb/i}
   end
 
-  def url_from(name)
-    URI.escape("http://akas.imdb.com/find?s=all&q=#{name}")
+  def url_from_name
+    URI.escape("http://akas.imdb.com/find?s=all&q=#{name_with_year}")
+  end
+
+  def name_with_year
+    str = @name
+    str += " (#{@year})" if @year != "N/A"
+    str
   end
 
   def parse_name_and_year(movie_name)
@@ -62,7 +68,7 @@ class Movie
       name_without_year = name.gsub(/\s?#{year}$/, "")
       name = name_without_year unless name_without_year.empty?
     end
-    return name, year
+    return name, year || "N/A"
   end
 
   def clean(movie_name)
