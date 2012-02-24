@@ -77,7 +77,7 @@ class Movie
       retail r5 dvd limited ee ts proper tc fs ws bluray hddvd subpack
       xvid divx dvdrip dvdscr xxx hdtv internal
       telesync subfix dirfix screener scr cam nfofix readnfo dsr workprint mdvdr bdrip
-      stv extended dvdrscreener dvdscreener bdscr dvd5 remastered x264 3d brrip)
+      stv extended dvdrscreener dvdscreener bdscr dvd5 remastered x264 3d brrip festival)
 
     movie_name = movie_name.gsub(/['"]/, "").gsub(/[-._]/, " ").squeeze(" ")
     excluded_regexp = /^(?:\(incomplete\)-)?(.*?)(?:#{excluded_keywords.join(" | ")} | s\d+e\d+)/i
