@@ -24,7 +24,9 @@ class MovieFinder
 
   def filter_hidden movies
     @hidden_movies.each_pair do |dir, hidden_movies|
-      movies[dir].delete_if {|movie| hidden_movies.include? movie[:path]}
+      movies_in_dir = movies[dir]
+      next unless movies_in_dir
+      movies_in_dir.delete_if {|movie| hidden_movies.include? movie[:path]}
     end
     movies
   end
