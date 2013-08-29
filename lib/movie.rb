@@ -9,7 +9,7 @@ class Movie
   end
 
   def to_json
-    Yajl::Encoder.encode :url => url, :movie_id => movie_id, :year => year, :plot => plot,
+    MultiJson.dump :url => url, :movie_id => movie_id, :year => year, :plot => plot,
                          :name => name, :score => score, :votes => votes, :genres => genres
   end
 

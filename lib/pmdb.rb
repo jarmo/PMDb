@@ -1,13 +1,5 @@
-require 'sinatra/base'
-require 'sass'
-require 'haml'
-require 'compass'
-require 'yaml'
-require 'pathname'
-require 'parallel'
-require 'net/http'
-require 'yajl'
-require 'imdb'
+require "bundler"
+Bundler.require
 
 require_relative 'pathname_ext'
 require_relative 'movie_finder'
@@ -55,7 +47,7 @@ class PMDb < Sinatra::Base
   end
 
   get "/" do
-    @movies = Yajl::Encoder.encode movies
+    @movies = MultiJson.dump movies
     haml :index
   end
 

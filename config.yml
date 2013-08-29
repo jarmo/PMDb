@@ -1,4 +1,3 @@
 port: 7000
 directories:
- - c:/users/media/videos
- - w:\avi
+ - d:\videos

@@ -1,4 +1,4 @@
-source :rubygems
+source "https://rubygems.org"
 
 gem "sinatra"
 gem "sinatra-contrib"
@@ -6,7 +6,8 @@ gem "haml"
 gem "sass"
 gem "compass"
 gem "thin"
-gem "eventmachine", "~> 1.0.0.beta.4.1"
+gem "eventmachine"
 gem "parallel"
-gem "yajl-ruby"
+gem "multi_json"
+gem "oj"
 gem 'imdb'
