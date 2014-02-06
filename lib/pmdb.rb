@@ -53,7 +53,7 @@ class PMDb < Sinatra::Base
 
   get "/rescan" do
     content_type 'application/json', :charset => 'utf-8'
-    Yajl::Encoder.encode rescan_movies
+    MultiJson.dump rescan_movies
   end
 
   post "/remove" do
