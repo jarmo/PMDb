@@ -49,9 +49,11 @@ class MovieFinder
       if File.exist? dir
         dirs = Pathname.new(dir).children.select(&:directory?)
         movie_files_in_dirs = dirs.reduce([]) do |memo, d|
-          file = d.children.detect do |f|
+          files = d.children.select do |f|
             f.file? && (f.nfo? || f.video?)
           end
+
+          file = files.detect(&:nfo?) || files.first
           
           if file
             file_mtime = file.mtime
