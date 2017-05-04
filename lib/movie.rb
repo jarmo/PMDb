@@ -26,7 +26,11 @@ class Movie
       movie = ::Imdb::Movie.new(@movie_id)
     else
       result = ::Imdb::Search.new(name_with_year)
-      movie = result.movies.first if result.movies.size == 1
+      movie = if result.movies.size == 1
+        result.movies.first
+      else
+        result.movies.find { |m| m.title == name_with_year }
+      end
     end
     parse_response movie
   end
@@ -34,7 +38,7 @@ class Movie
   def parse_response movie
     return unless movie
 
-    @name = movie.title
+    @name, _ = parse_name_and_year(movie.title)
     @year = movie.year.to_s
     @score = movie.rating.to_s
     @votes = movie.votes.to_s.reverse.gsub(/(\d{3})/, '\1 \2').reverse.strip
@@ -67,7 +71,7 @@ class Movie
     name = clean movie_name
     year = name.scan(/\s?((?:19|20)\d{2})/).flatten.last
     if year
-      name_without_year = name.gsub(/\s?#{year}$/, "")
+      name_without_year = name.gsub(/[\s(]*#{year}[\s)]*$/, "")
       name = name_without_year unless name_without_year.empty?
     end
     return name, year || "N/A"

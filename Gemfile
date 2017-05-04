@@ -10,4 +10,4 @@ gem "eventmachine"
 gem "parallel"
 gem "multi_json"
 gem "oj"
-gem 'imdb', "0.8.1"
+gem 'imdb', git: 'https://github.com/jarmo/imdb', ref: '76de4b'
