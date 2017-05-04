@@ -16,7 +16,9 @@ GEM
     compass-import-once (1.0.5)
       sass (>= 3.2, < 3.5)
     daemons (1.2.4)
+    eventmachine (1.2.1)
     eventmachine (1.2.1-x64-mingw32)
+    ffi (1.9.14)
     ffi (1.9.14-x64-mingw32)
     haml (4.0.7)
       tilt
@@ -24,6 +26,8 @@ GEM
       nokogiri (>= 1.6.0)
     mini_portile2 (2.1.0)
     multi_json (1.12.1)
+    nokogiri (1.7.0.1)
+      mini_portile2 (~> 2.1.0)
     nokogiri (1.7.0.1-x64-mingw32)
       mini_portile2 (~> 2.1.0)
     oj (2.18.0)
@@ -55,6 +59,7 @@ GEM
     tilt (2.0.5)
 
 PLATFORMS
+  ruby
   x64-mingw32
 
 DEPENDENCIES
@@ -71,4 +76,4 @@ DEPENDENCIES
   thin
 
 BUNDLED WITH
-   1.13.6
+   1.14.6

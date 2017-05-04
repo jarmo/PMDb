@@ -1,3 +1,4 @@
 port: 7000
 directories:
- - e:\videos
+ - /mnt/e/Videos
+ - /mnt/j/Videos

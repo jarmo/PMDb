@@ -49,6 +49,8 @@ class Movie
 
     urls = URI.extract(file.read, "http")
     urls.detect {|url| url =~ /imdb/i}
+  rescue ArgumentError
+    # UTF-8 problems reading file...
   end
 
   def url_from_name
